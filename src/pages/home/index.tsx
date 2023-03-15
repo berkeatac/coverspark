@@ -35,7 +35,7 @@ export default function Home() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        prompt: `My name is ${inputState.name} and I am applying for a job at ${inputState.companyName}. The job ad has a description of: ${inputState.description}. Please write a cover letter for me, of maximum 1500 characters.`,
+        prompt: `My name is ${inputState.name} and I am applying for a job at ${inputState.companyName}. The job ad has a description of: ${inputState.description}. Please write a cover letter for me, of maximum 1500 characters. Do not mention specfic technologies I haven't mentioned in my skills.`,
       }),
     });
 
@@ -74,9 +74,6 @@ export default function Home() {
             style={{ display: "flex", flexDirection: "column" }}
             onSubmit={(e) => {
               generateBio(e);
-              // e.preventDefault();
-              // console.log(inputState);
-              // mutate(inputState);
             }}
           >
             <label htmlFor="name">Name *</label>

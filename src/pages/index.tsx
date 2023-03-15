@@ -36,17 +36,7 @@ export default function Home() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        prompt: `My name is ${inputState.name} and I am applying for a job at ${
-          inputState.companyName
-        }. ${
-          inputState.description
-            ? "The job ad has a description of: " + inputState.description
-            : ""
-        }. ${
-          inputState.skills
-            ? "I have the following skills: " + inputState.skills
-            : ""
-        }. Please write a cover letter for me, of maximum 1500 characters.`,
+        inputState,
       }),
     });
 

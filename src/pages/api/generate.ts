@@ -39,13 +39,23 @@ export const config = {
 };
 
 const handler = async (req: Request): Promise<Response> => {
-  const { prompt } = (await req.json()) as {
-    prompt?: string;
+  const { inputState } = (await req.json()) as {
+    inputState?: any;
   };
 
   const payload = {
     model: "text-davinci-003",
-    prompt,
+    prompt: `My name is ${inputState.name} and I am applying for a job at ${
+      inputState.companyName
+    }. ${
+      inputState.description
+        ? "The job ad has a description of: " + inputState.description
+        : ""
+    }. ${
+      inputState.skills
+        ? "I have the following skills: " + inputState.skills
+        : ""
+    }. Please write a cover letter for me, of maximum 1500 characters. Only mention the skills I have provided if any.`,
     temperature: 0.7,
     top_p: 1,
     frequency_penalty: 0,
