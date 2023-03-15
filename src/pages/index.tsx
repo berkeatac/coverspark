@@ -1,12 +1,5 @@
 import Head from "next/head";
 import { useState } from "react";
-import styles from "../../styles/Home.module.css";
-import { useMutation } from "@tanstack/react-query";
-
-const postLetterRequest = (body) =>
-  fetch("/api/gpt", { body: JSON.stringify(body), method: "POST" }).then(
-    (res) => res.json()
-  );
 
 export default function Home() {
   const [inputState, setInputState] = useState({
@@ -17,14 +10,6 @@ export default function Home() {
   });
   const [generatedBios, setGeneratedBios] = useState("");
   const [loading, setLoading] = useState(false);
-  const { mutate, data } = useMutation(postLetterRequest, {
-    onSuccess: (data) => {
-      console.log(data);
-    },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
 
   const generateBio = async (e: any) => {
     e.preventDefault();
@@ -164,17 +149,6 @@ export default function Home() {
           </div>
         </div>
       </main>
-
-      {/* <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <img src="/vercel.svg" alt="Vercel" className={styles.logo} />
-        </a>
-      </footer> */}
     </div>
   );
 }
