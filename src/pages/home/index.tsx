@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useState } from "react";
-import styles from "../../styles/Home.module.css";
+import styles from "../../../styles/Home.module.css";
 import { useMutation } from "@tanstack/react-query";
 
 const postLetterRequest = (body) =>
@@ -62,16 +62,16 @@ export default function Home() {
   };
 
   return (
-    <div className="h-screen">
+    <div className={styles.container}>
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="h-full">
-        <div className="container mx-auto px-4 flex flex-row gap-4 py-16 min-w-full h-full">
+      <main>
+        <div className={styles.container}>
           <form
-            className="flex flex-col basis-1/4"
+            style={{ display: "flex", flexDirection: "column" }}
             onSubmit={(e) => {
               generateBio(e);
               // e.preventDefault();
@@ -84,7 +84,6 @@ export default function Home() {
               id="name"
               type="text"
               required
-              className="input input-bordered w-full max-w-xs mb-4"
               value={inputState.name}
               onChange={(e) =>
                 setInputState({ ...inputState, name: e.target.value })
@@ -95,7 +94,6 @@ export default function Home() {
               id="company-name"
               type="text"
               required
-              className="input input-bordered w-full max-w-xs mb-4"
               value={inputState.companyName}
               onChange={(e) =>
                 setInputState({ ...inputState, companyName: e.target.value })
@@ -106,23 +104,17 @@ export default function Home() {
               id="description"
               maxLength={1000}
               value={inputState.description}
-              className="textarea textarea-bordered mb-4"
               onChange={(e) =>
                 setInputState({ ...inputState, description: e.target.value })
               }
             />
-            <button role="submit" className="btn">
-              Submit
-            </button>
+            <button role="submit">Submit</button>
           </form>
-          {/* 
-          <p style={{ whiteSpace: "pre-line" }}>{data?.response}</p> */}
 
-          <div className="basis-3/4 h-full">
-            <textarea
-              className="h-full min-w-full textare-bordered resize-none whitespace-pre-line p-4"
-              value={generatedBios}
-            ></textarea>
+          <p style={{ whiteSpace: "pre-line" }}>{data?.response}</p>
+
+          <div>
+            <p style={{ whiteSpace: "pre-line" }}>{generatedBios}</p>
           </div>
         </div>
       </main>
