@@ -75,9 +75,6 @@ export default function Home() {
             className="flex flex-col basis-1/4"
             onSubmit={(e) => {
               generateBio(e);
-              // e.preventDefault();
-              // console.log(inputState);
-              // mutate(inputState);
             }}
           >
             <label htmlFor="name" className="label">
@@ -86,6 +83,7 @@ export default function Home() {
             </label>
             <input
               id="name"
+              disabled={loading}
               type="text"
               required
               className="input input-bordered input-sm min-w-full max-w-xs mb-8 py-1 h-12 px-4"
@@ -100,6 +98,7 @@ export default function Home() {
             </label>
             <input
               id="company-name"
+              disabled={loading}
               type="text"
               required
               className="input input-bordered input-sm min-w-full max-w-xs mb-8 py-1 h-12 px-4"
@@ -113,6 +112,7 @@ export default function Home() {
             </label>
             <input
               id="skills"
+              disabled={loading}
               type="text"
               className="input input-bordered input-sm min-w-full max-w-xs mb-8 py-1 h-12 px-4"
               placeholder="Enter keywords for skills here"
@@ -126,6 +126,7 @@ export default function Home() {
             </label>
             <textarea
               id="description"
+              disabled={loading}
               maxLength={1000}
               value={inputState.description}
               className="textarea textarea-bordered mb-8 h-48"
@@ -134,12 +135,10 @@ export default function Home() {
                 setInputState({ ...inputState, description: e.target.value })
               }
             />
-            <button role="submit" className="btn">
+            <button role="submit" className="btn" disabled={loading}>
               Submit
             </button>
           </form>
-          {/* 
-          <p style={{ whiteSpace: "pre-line" }}>{data?.response}</p> */}
 
           <div className="basis-3/4 h-full relative">
             <p className="h-full min-w-full textare-bordered border resize-none whitespace-pre-line p-4 focus:border-none focus:outline-slate-500">
