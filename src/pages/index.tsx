@@ -80,7 +80,7 @@ export default function Home() {
       </Head>
 
       <main className="h-full">
-        <div className="container mx-auto px-4 flex flex-row gap-4 py-16 min-w-full h-full">
+        <div className="container mx-auto px-4 flex flex-col sm:flex-row gap-4 py-16 min-w-full h-full">
           <form
             className="flex flex-col basis-1/4"
             onSubmit={(e) => {
@@ -97,7 +97,7 @@ export default function Home() {
               id="name"
               type="text"
               required
-              className="input input-bordered w-full max-w-xs mb-4"
+              className="input input-bordered min-w-full max-w-xs mb-4"
               value={inputState.name}
               onChange={(e) =>
                 setInputState({ ...inputState, name: e.target.value })
@@ -110,7 +110,7 @@ export default function Home() {
               id="company-name"
               type="text"
               required
-              className="input input-bordered w-full max-w-xs mb-4"
+              className="input input-bordered min-w-full max-w-xs mb-4"
               value={inputState.companyName}
               onChange={(e) =>
                 setInputState({ ...inputState, companyName: e.target.value })
@@ -122,8 +122,7 @@ export default function Home() {
             <input
               id="skills"
               type="text"
-              required
-              className="input input-bordered w-full max-w-xs mb-4"
+              className="input input-bordered min-w-full max-w-xs mb-4"
               value={inputState.skills}
               onChange={(e) =>
                 setInputState({ ...inputState, skills: e.target.value })
