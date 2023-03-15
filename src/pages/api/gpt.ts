@@ -10,17 +10,21 @@ const openai = new OpenAIApi(configuration);
 export default function handler(_req: NextApiRequest, res: NextApiResponse) {
   const { name, companyName, description } = JSON.parse(_req.body);
   openai
-    .createChatCompletion({
-      model: "gpt-3.5-turbo",
-      messages: [
-        {
-          role: "user",
-          content: `I'm ${name}. I'm applying for a job at ${companyName} with a description of ${description}. Write a cover letter for me to apply at this job.`,
-        },
-      ],
-      //   prompt: `I'm ${_req.body.name}. I'm applying for a job at ${_req.body.companyName} with a description of ${_req.body.description}. Write me a cover letter.`,
+    .createCompletion({
+      //   model: "gpt-3.5-turbo",
+      //   messages: [
+      //     {
+      //       role: "user",
+      //       content: `I'm ${name}. I'm applying for a job at ${companyName} with a description of ${description}. Write a cover letter for me to apply at this job.`,
+      //     },
+      //   ],
+      model: "text-davinci-003",
+      max_tokens: 500,
+      prompt: `I'm ${name}. I'm applying for a job at ${companyName} with a description of ${description}. Write me a cover letter.`,
     })
     .then((data) => {
-      res.status(200).json({ response: data.data.choices[0].message.content });
+      console.log(data);
+      //   res.status(200).json({ response: data.data.choices[0].message.content });
+      res.status(200).json({ response: data.data.choices[0].text });
     });
 }
