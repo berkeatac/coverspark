@@ -91,7 +91,8 @@ export default function Home() {
             }}
           >
             <label htmlFor="name" className="label">
-              <span className="label-text">Name *</span>
+              <span className="label-text">Name</span>
+              <span className="label-text-alt">*required</span>
             </label>
             <input
               id="name"
@@ -104,7 +105,8 @@ export default function Home() {
               }
             />
             <label htmlFor="company-name" className="label">
-              <span className="label-text">Company Name *</span>
+              <span className="label-text">Company Name</span>
+              <span className="label-text-alt">*required</span>
             </label>
             <input
               id="company-name"
@@ -147,11 +149,22 @@ export default function Home() {
           {/* 
           <p style={{ whiteSpace: "pre-line" }}>{data?.response}</p> */}
 
-          <div className="basis-3/4 h-full">
+          <div className="basis-3/4 h-full relative">
             <textarea
               className="h-full min-w-full textare-bordered resize-none whitespace-pre-line p-4"
               value={generatedBios}
             ></textarea>
+
+            {generatedBios && (
+              <button
+                className="btn btn-outline btn-sm absolute top-2 right-16 w-16 z-50"
+                onClick={() => {
+                  navigator.clipboard.writeText(generatedBios);
+                }}
+              >
+                Copy
+              </button>
+            )}
           </div>
         </div>
       </main>
