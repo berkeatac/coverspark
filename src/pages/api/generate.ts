@@ -55,7 +55,7 @@ const handler = async (req: Request): Promise<Response> => {
       inputState.skills
         ? "I have the following skills: " + inputState.skills
         : ""
-    }. Please write a cover letter for me, of maximum 1500 characters. Only mention the skills I have provided if any.`,
+    }. Please write a cover letter for me, of maximum 1500 characters. Only mention the skills I have provided. Do not mention skills I haven't told you directly. Do not give information with quantitative value like years of experience as you don't know for certain.`,
     temperature: 0.7,
     top_p: 1,
     frequency_penalty: 0,

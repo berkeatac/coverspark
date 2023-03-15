@@ -70,7 +70,7 @@ export default function Home() {
       </Head>
 
       <main className="h-full">
-        <div className="container mx-auto px-4 flex flex-col sm:flex-row gap-4 py-16 min-w-full h-full">
+        <div className="container mx-auto px-12 flex flex-col sm:flex-row gap-8 py-16 min-w-full h-full">
           <form
             className="flex flex-col basis-1/4"
             onSubmit={(e) => {
@@ -88,7 +88,7 @@ export default function Home() {
               id="name"
               type="text"
               required
-              className="input input-bordered min-w-full max-w-xs mb-4"
+              className="input input-bordered input-sm min-w-full max-w-xs mb-8 py-1 h-12 px-4"
               value={inputState.name}
               onChange={(e) =>
                 setInputState({ ...inputState, name: e.target.value })
@@ -102,7 +102,7 @@ export default function Home() {
               id="company-name"
               type="text"
               required
-              className="input input-bordered min-w-full max-w-xs mb-4"
+              className="input input-bordered input-sm min-w-full max-w-xs mb-8 py-1 h-12 px-4"
               value={inputState.companyName}
               onChange={(e) =>
                 setInputState({ ...inputState, companyName: e.target.value })
@@ -114,7 +114,8 @@ export default function Home() {
             <input
               id="skills"
               type="text"
-              className="input input-bordered min-w-full max-w-xs mb-4"
+              className="input input-bordered input-sm min-w-full max-w-xs mb-8 py-1 h-12 px-4"
+              placeholder="Enter keywords for skills here"
               value={inputState.skills}
               onChange={(e) =>
                 setInputState({ ...inputState, skills: e.target.value })
@@ -127,7 +128,8 @@ export default function Home() {
               id="description"
               maxLength={1000}
               value={inputState.description}
-              className="textarea textarea-bordered mb-4"
+              className="textarea textarea-bordered mb-8 h-48"
+              placeholder="Copy the job description here"
               onChange={(e) =>
                 setInputState({ ...inputState, description: e.target.value })
               }
@@ -141,7 +143,13 @@ export default function Home() {
 
           <div className="basis-3/4 h-full relative">
             <p className="h-full min-w-full textare-bordered border resize-none whitespace-pre-line p-4 focus:border-none focus:outline-slate-500">
-              {generatedBios}
+              {generatedBios ? (
+                generatedBios
+              ) : (
+                <span className="text-slate-500">
+                  Your cover letter will appear here..
+                </span>
+              )}
             </p>
 
             {generatedBios && (
