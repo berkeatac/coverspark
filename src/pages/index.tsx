@@ -140,10 +140,9 @@ export default function Home() {
           <p style={{ whiteSpace: "pre-line" }}>{data?.response}</p> */}
 
           <div className="basis-3/4 h-full relative">
-            <textarea
-              className="h-full min-w-full textare-bordered border resize-none whitespace-pre-line p-4"
-              value={generatedBios}
-            ></textarea>
+            <p className="h-full min-w-full textare-bordered border resize-none whitespace-pre-line p-4 focus:border-none focus:outline-slate-500">
+              {generatedBios}
+            </p>
 
             {generatedBios && (
               <button
