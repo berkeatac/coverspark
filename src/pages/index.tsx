@@ -141,13 +141,13 @@ export default function Home() {
 
           <div className="basis-3/4 h-full relative">
             <textarea
-              className="h-full min-w-full textare-bordered resize-none whitespace-pre-line p-4"
+              className="h-full min-w-full textare-bordered border resize-none whitespace-pre-line p-4"
               value={generatedBios}
             ></textarea>
 
             {generatedBios && (
               <button
-                className="btn btn-outline btn-sm absolute top-2 right-16 w-16 z-50"
+                className="btn btn-outline btn-sm absolute top-4 right-4 w-16 z-50"
                 onClick={() => {
                   navigator.clipboard.writeText(generatedBios);
                 }}
