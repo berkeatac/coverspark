@@ -13,6 +13,7 @@ export default function Home() {
     name: "",
     companyName: "",
     description: "",
+    skills: "",
   });
   const [generatedBios, setGeneratedBios] = useState("");
   const [loading, setLoading] = useState(false);
@@ -35,7 +36,17 @@ export default function Home() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        prompt: `My name is ${inputState.name} and I am applying for a job at ${inputState.companyName}. The job ad has a description of: ${inputState.description}. Please write a cover letter for me, of maximum 1500 characters.`,
+        prompt: `My name is ${inputState.name} and I am applying for a job at ${
+          inputState.companyName
+        }. ${
+          inputState.description
+            ? "The job ad has a description of: " + inputState.description
+            : ""
+        }. ${
+          inputState.skills
+            ? "I have the following skills: " + inputState.skills
+            : ""
+        }. Please write a cover letter for me, of maximum 1500 characters.`,
       }),
     });
 
@@ -79,7 +90,9 @@ export default function Home() {
               // mutate(inputState);
             }}
           >
-            <label htmlFor="name">Name *</label>
+            <label htmlFor="name" className="label">
+              <span className="label-text">Name *</span>
+            </label>
             <input
               id="name"
               type="text"
@@ -90,7 +103,9 @@ export default function Home() {
                 setInputState({ ...inputState, name: e.target.value })
               }
             />
-            <label htmlFor="company-name">Company Name *</label>
+            <label htmlFor="company-name" className="label">
+              <span className="label-text">Company Name *</span>
+            </label>
             <input
               id="company-name"
               type="text"
@@ -101,7 +116,22 @@ export default function Home() {
                 setInputState({ ...inputState, companyName: e.target.value })
               }
             />
-            <label htmlFor="description">Job Description</label>
+            <label htmlFor="skills" className="label">
+              <span className="label-text">Your skills</span>
+            </label>
+            <input
+              id="skills"
+              type="text"
+              required
+              className="input input-bordered w-full max-w-xs mb-4"
+              value={inputState.skills}
+              onChange={(e) =>
+                setInputState({ ...inputState, skills: e.target.value })
+              }
+            />
+            <label htmlFor="description" className="label">
+              <span className="label-text">Job Description</span>
+            </label>
             <textarea
               id="description"
               maxLength={1000}
