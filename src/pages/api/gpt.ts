@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 const { Configuration, OpenAIApi } = require("openai");
 
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 const openai = new OpenAIApi(configuration);
