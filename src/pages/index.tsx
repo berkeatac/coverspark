@@ -14,6 +14,8 @@ export default function Home() {
     companyName: "",
     description: "",
   });
+  const [generatedBios, setGeneratedBios] = useState("");
+  const [loading, setLoading] = useState(false);
   const { mutate, data } = useMutation(postLetterRequest, {
     onSuccess: (data) => {
       console.log(data);
@@ -22,6 +24,42 @@ export default function Home() {
       console.log(error);
     },
   });
+
+  const generateBio = async (e: any) => {
+    e.preventDefault();
+    setGeneratedBios("");
+    setLoading(true);
+    const response = await fetch("/api/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        prompt: `My name is ${inputState.name} and I am applying for a job at ${inputState.companyName}. The job ad has a description of: ${inputState.description}. Please write a cover letter for me, of maximum 1500 characters.`,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    const data = response.body;
+    if (!data) {
+      return;
+    }
+    const reader = data.getReader();
+    const decoder = new TextDecoder();
+    let done = false;
+
+    while (!done) {
+      const { value, done: doneReading } = await reader.read();
+      done = doneReading;
+      const chunkValue = decoder.decode(value);
+      setGeneratedBios((prev) => prev + chunkValue);
+    }
+
+    setLoading(false);
+  };
 
   return (
     <div className={styles.container}>
@@ -34,12 +72,13 @@ export default function Home() {
         <form
           style={{ display: "flex", flexDirection: "column" }}
           onSubmit={(e) => {
-            e.preventDefault();
-            console.log(inputState);
-            mutate(inputState);
+            generateBio(e);
+            // e.preventDefault();
+            // console.log(inputState);
+            // mutate(inputState);
           }}
         >
-          <label for="name">Name *</label>
+          <label htmlFor="name">Name *</label>
           <input
             id="name"
             type="text"
@@ -49,7 +88,7 @@ export default function Home() {
               setInputState({ ...inputState, name: e.target.value })
             }
           />
-          <label for="company-name">Company Name *</label>
+          <label htmlFor="company-name">Company Name *</label>
           <input
             id="company-name"
             type="text"
@@ -59,10 +98,9 @@ export default function Home() {
               setInputState({ ...inputState, companyName: e.target.value })
             }
           />
-          <label for="description">Job Description</label>
+          <label htmlFor="description">Job Description</label>
           <textarea
             id="description"
-            type="text"
             maxLength={1000}
             value={inputState.description}
             onChange={(e) =>
@@ -73,6 +111,10 @@ export default function Home() {
         </form>
 
         <p style={{ whiteSpace: "pre-line" }}>{data?.response}</p>
+
+        <div>
+          <p style={{ whiteSpace: "pre-line" }}>{generatedBios}</p>
+        </div>
       </main>
 
       {/* <footer>
