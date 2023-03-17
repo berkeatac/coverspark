@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
@@ -91,6 +91,14 @@ export default function Home() {
         .single()
         .then((data) => setCredits(data?.data?.credits))
     : null;
+
+  useEffect(() => {
+    if (supabase && user) {
+      supabase
+        .rpc("increment", { row_id: user.id })
+        .then(({ data, error }) => console.log(data, error));
+    }
+  }, [user]);
 
   if (!user) {
     return (
