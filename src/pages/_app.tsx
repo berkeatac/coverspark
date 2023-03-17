@@ -1,19 +1,23 @@
 import "../../styles/globals.css";
 import { Analytics } from "@vercel/analytics/react";
-import { SessionProvider } from "next-auth/react";
-
-import type { Session } from "next-auth";
-import type { AppProps } from "next/app";
+import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { SessionContextProvider } from "@supabase/auth-helpers-react";
+import { useState } from "react";
 
 // This default export is required in a new `pages/_app.js` file.
-export default function MyApp({
-  Component,
-  pageProps: { session, ...pageProps },
-}: AppProps<{ session: Session }>) {
+function MyApp({ Component, pageProps }) {
+  // Create a new supabase browser client on every first render.
+  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
+
   return (
-    <SessionProvider session={session}>
+    <SessionContextProvider
+      supabaseClient={supabaseClient}
+      initialSession={pageProps.initialSession}
+    >
       <Component {...pageProps} />
       <Analytics />
-    </SessionProvider>
+    </SessionContextProvider>
   );
 }
+
+export default MyApp;
