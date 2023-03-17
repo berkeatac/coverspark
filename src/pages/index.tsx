@@ -83,12 +83,14 @@ export default function Home() {
   const supabase = useSupabaseClient();
   console.log(user);
 
-  let data = supabase
-    .from("credits")
-    .select("*")
-    .eq("user_id", user?.id)
-    .single()
-    .then((data) => setCredits(data?.data?.credits));
+  let data = user?.id
+    ? supabase
+        .from("credits")
+        .select("*")
+        .eq("id", user?.id)
+        .single()
+        .then((data) => setCredits(data?.data?.credits))
+    : null;
 
   if (!user) {
     return (
