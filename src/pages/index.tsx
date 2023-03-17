@@ -107,7 +107,11 @@ export default function Home() {
           supabaseClient={supabase}
           appearance={{ theme: ThemeSupa }}
           providers={["google"]}
-          redirectTo="/"
+          redirectTo={
+            process.env.NODE_ENV === "development"
+              ? "http://localhost:3000"
+              : "https://coverspark.vercel.app"
+          }
         />
       </div>
     );
