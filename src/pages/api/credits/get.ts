@@ -11,7 +11,7 @@ export default async function handler(
     res: NextApiResponse<Data | PostgrestError>
 ) {
     const {user} = req.body
-    const { data, error } = await supabase
+    const {data, error} = await supabase
         .from("credits")
         .select("*")
         .eq("user_id", user)
