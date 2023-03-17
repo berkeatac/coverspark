@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { useState } from "react";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function Home() {
   const [inputState, setInputState] = useState({
@@ -73,6 +74,8 @@ export default function Home() {
     setLoading(false);
   };
 
+  const { data, status } = useSession();
+
   return (
     <div className="h-screen">
       <Head>
@@ -81,6 +84,39 @@ export default function Home() {
       </Head>
 
       <main className="h-full">
+        <div className="flex items-center gap-2">
+          {status === "loading" && (
+            <div className="w-8 h-8 rounded-full bg-purple-50 border-2" />
+          )}
+
+          {status === "unauthenticated" && (
+            <>
+              <button
+                onClick={() =>
+                  signIn(undefined, {
+                    callbackUrl:
+                      "https://ruyugxhdgjlugjtcewte.supabase.co/auth/v1/callback",
+                  })
+                }
+              >
+                Sign In
+              </button>
+              <div className="w-8 h-8 rounded-full border-2" />
+            </>
+          )}
+
+          {status === "authenticated" && (
+            <>
+              <p className="text-sm font-medium">Welcome, {data?.user.name}</p>
+              <img
+                onClick={() => signOut()}
+                className="w-8 h-8 rounded-full border-2"
+                src={data?.user.image}
+                alt=""
+              />
+            </>
+          )}
+        </div>
         <div className="container mx-auto px-12 flex flex-col sm:flex-row gap-8 py-16 min-w-full h-full">
           <form
             className="flex flex-col basis-1/4"
