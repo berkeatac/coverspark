@@ -13,6 +13,7 @@ export default function Home() {
   });
   const [generatedBios, setGeneratedBios] = useState("");
   const [loading, setLoading] = useState(false);
+  const [credits, setCredits] = useState(0);
 
   const getPdf = async () => {
     const response = await fetch("/api/getpdf", {
@@ -82,6 +83,13 @@ export default function Home() {
   const supabase = useSupabaseClient();
   console.log(user);
 
+  let data = supabase
+    .from("credits")
+    .select("*")
+    .eq("user_id", user?.id)
+    .single()
+    .then((data) => setCredits(data.data.credits));
+
   if (!user) {
     return (
       <div className="flex items-center gap-2">
@@ -102,6 +110,7 @@ export default function Home() {
       </Head>
 
       <main className="h-full">
+        <p>Credits: {credits}</p>
         <button onClick={() => supabase.auth.signOut()}>log out</button>
         <div className="container mx-auto px-12 flex flex-col sm:flex-row gap-8 py-16 min-w-full h-full">
           <form
