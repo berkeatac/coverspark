@@ -88,7 +88,7 @@ export default function Home() {
     .select("*")
     .eq("user_id", user?.id)
     .single()
-    .then((data) => setCredits(data.data.credits));
+    .then((data) => setCredits(data?.data?.credits));
 
   if (!user) {
     return (
