@@ -1,18 +1,19 @@
 import "../../styles/globals.css";
-import {
-  useMutation,
-  QueryClientProvider,
-  QueryClient,
-} from "@tanstack/react-query";
 import { Analytics } from "@vercel/analytics/react";
+import { SessionProvider } from "next-auth/react";
+
+import type { Session } from "next-auth";
+import type { AppProps } from "next/app";
 
 // This default export is required in a new `pages/_app.js` file.
-export default function MyApp({ Component, pageProps }) {
-  const queryClient = new QueryClient();
+export default function MyApp({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps<{ session: Session }>) {
   return (
-    <QueryClientProvider client={queryClient}>
+    <SessionProvider session={session}>
       <Component {...pageProps} />
       <Analytics />
-    </QueryClientProvider>
+    </SessionProvider>
   );
 }
