@@ -18,14 +18,6 @@ export default function Home() {
   const user = useUser();
   const supabase = useSupabaseClient();
 
-  // useEffect(() => {
-  //   if (supabase && user) {
-  //     supabase
-  //       .rpc("increment", { row_id: user.id })
-  //       .then(({ data, error }) => console.log(data, error));
-  //   }
-  // }, [user]);
-
   if (!user) {
     return (
       <div className="flex items-center gap-2">

@@ -15,6 +15,7 @@ const SupabaseAuth = () => {
           ? "http://localhost:3000"
           : "https://coverspark.vercel.app"
       }
+      onlyThirdPartyProviders
     />
   );
 };
